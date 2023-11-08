@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
+    <title>Login page</title>
+  </head>
+  <body>
+      <div class="container mt-5">
+          <div class="row justify-content-center">
+              <div class="col-md-6">
+                  <h2 class="mb-4">Login</h2>
+                  <form  onsubmit="login(event)" id="form">
+                      <div class="mb-3">
+                          <label for="email" class="form-label">Email address</label>
+                          <input type="email" class="form-control" id="email" name="email" required>
+                      </div>
+                      <div class="mb-3">
+                          <label for="password" class="form-label">Password</label>
+                          <input type="password" class="form-control" id="password" name="password" required>
+                      </div>
+                      <button type="submit" class="btn btn-primary">Login</button>
+                  </form>
+                  <p class="mt-3">
+                      <a href="./forgot.html"  target="_parent">Forgot Password?</a> | <a href="./signup.html">New User</a>
+                  </p>
+              </div>
+          </div>
+      </div>
+    <!-- <div class="container">
+      <form onsubmit="login(event)" id="form">
+        <label class="form-label" for="email">Enter Your Email:</label>
+        <input
+          class="form-control"
+          type="text"
+          id="email"
+          value="deepak123@gmail.com"
+          required
+        />
+
+        <label class="form-label mt-2" for="password"
+          >Enter your passowrd:</label
+        >
+        <input
+          class="form-control"
+          type="password"
+          id="password"
+          name="passowrd"
+          value="7875487"
+          required
+        />
+        <button class="btn btn-primary mt-2" type="submit">Log in</button>
+        <div>
+          <a
+            href="./forgot.html"
+            class="btn btn-secondary mt-2 mr-6"
+            target="_parent"
+            >Forgot password</a
+          >
+        </div>
+
+        <br /><a href="./singup.html">new user</a>
+      </form>
+    </div> -->
+    <script src="index-login.js"></script>
+    <!-- Axios CDN -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"
+      integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    
+  
+  </body>
+</html>

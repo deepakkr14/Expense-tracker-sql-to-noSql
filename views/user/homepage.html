@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light" id="html">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expense Tracker Dashboard</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"></script>
+  </head>
+  <body style="background-color: #d1dade">
+    <nav
+      class="navbar navbar-expand-lg navbar-light"
+      style="background-color: #8dacbd"
+    >
+      <div class="container">
+        <a class="navbar-brand active" href="./homepage.html"
+          >Expense Tracker</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item ">
+              <button
+                class="nav-link btn-info m-2 "
+                id="leaderboard"
+                title="Upgrade to Premium to unlock this feature"
+                
+              >
+                <span>&#128274;</span>Leaderboard<span>&#128202;</span>
+              </button>
+            </li>
+            <li class="nav-item">
+              <button class="nav-link btn-info m-2" id="viewexpenses">
+                <span>&#128176;</span> View Expenses
+              </button>
+            </li>
+            <li class="nav-item">
+              <button class="nav-link btn-info m-2" id="addexpenses">
+                <span>&#128184;</span>Add Expenses
+              </button>
+            </li>
+            <li class="nav-item">
+              <button class="nav-link btn-info m-2" id="reports">
+                Reports<span>&#128240;</span>
+              </button>
+            </li>
+            <li class="nav-item">
+              <button class="nav-link btn-info m-2" id="buypremium">
+                <span>&#128081;</span>Buy Premium
+              </button>
+            </li>
+            <li class="form-check form-switch mt-3 ms-2">
+              <span>&#127912;</span>Theme
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="mySwitch"
+                name="darkmode"
+                value="yes"
+               checked
+              />
+            </li>
+            <li class="nav-item">
+              <button class="nav-link btn-info m-2" id="logout">
+                <span>&#128273;</span>Log out
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- <iframe src="./navbar.html"></iframe> -->
+    <div class="container mt-4">
+      <div class="row">
+        <div class="col-md-5">
+          <div class="card">
+            <div class="card-header" style="background-color: #8dacbd">
+              Expense Categories distribution of current month
+            </div>
+            <div class="card-body">
+              <canvas id="expenseChart" width="100" height="100"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <div class="col md-6">
+          <div class="card">
+            <div class="card-body" style="background-color: #8dacbd">
+              <div class="row">
+                <div class="col-md-4">
+                  <h5 class="card-title">Total Expenses</h5>
+                  <p class="card-text">$2,500.00</p>
+                </div>
+                <div class="col-md-4">
+                  <h5 class="card-title">Total Income</h5>
+                  <p class="card-text">$2,500.00</p>
+                </div>
+                <div class="col-md-4">
+                  <h5 class="card-title">Total Balance</h5>
+                  <p class="card-text">$2,500.00</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col md-12 mt-3">
+            <div class="card">
+              <div class="card-header" style="background-color: #8dacbd">
+                Categories
+              </div>
+
+              <div style="max-height: 287px; overflow-y: auto">
+                <ul class="list-group" id="category">
+                  <li class="list-group-item">Food</li>
+                  <li class="list-group-item">Transportation</li>
+                  <li class="list-group-item">Entertainment</li>
+                  <li class="list-group-item">Rent</li>
+                  <li class="list-group-item">Groceries</li>
+                  <li class="list-group-item">Utilities</li>
+                  <li class="list-group-item">Travel</li>
+                  <li class="list-group-item">Healthcare</li>
+                </ul>
+              </div>
+              <div class="card-footer" style="background-color: #8dacbd">
+                <button class="btn btn-primary" onclick="myFunction()">
+                  <span>&#128274;</span> Add Custom Expense Categories
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mt-3">
+        <div class="card-header" style="background-color: #8dacbd">
+          Recent Expenses
+        </div>
+        <div class="card-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>2023-09-01</td>
+                <td>Food</td>
+                <td>Lunch</td>
+                <td>$15.00</td>
+              </tr>
+              <tr>
+                <td>2023-09-02</td>
+                <td>Transportation</td>
+                <td>Bus fare</td>
+                <td>$5.00</td>
+              </tr>
+              <!-- Add more rows for recent expenses -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4/dist/chart.umd.min.js"></script>
+    <script src="./home.js"></script>
+    <script src="./navigation.js"></script>
+    <!-- <link rel="import" href="./navbar.html"> -->
+  </body>
+</html>
