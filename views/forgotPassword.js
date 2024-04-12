@@ -19,7 +19,7 @@ console.log(email)
     alert('Check Your Inbox');
     window.location.href = './sign up page.html';
   } catch (error) {
-   alert("enter correct email address")
-    console.log(error);
+   alert(error.response.data.message)
+    console.log(error.response.data.message);
   }
 }

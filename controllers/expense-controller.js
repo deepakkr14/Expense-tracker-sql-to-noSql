@@ -8,7 +8,6 @@ const S3services = require("../services/s3services");
 
 exports.getPage = async (req, res) => {
   try {
-    console.log("i am  vallea");
     let page = Number(req.params.no); //1
     let limits = Number(req.params.limit);
 
@@ -18,10 +17,8 @@ exports.getPage = async (req, res) => {
     const totalData = await Expense.countDocuments({ userId: id });
 
     const ispremiumuser = await req.user.ispremiumuser;
-    console.log(" yaha baldfi", ispremiumuser);
-    //   limit: limits, // Number of items per page
-    //   offset: (page - 1) * itemsPerPage,
-    // });
+    const totalIncome = await req.user.totalIncome;
+   
 
     const expenses = await Expense.find({ userId: id })
       .skip((page - 1) * itemsPerPage)
@@ -47,6 +44,7 @@ exports.getPage = async (req, res) => {
     res.status(200).json({
       premium: ispremiumuser,
       expenses,
+      totalIncome,
       hasNextPage,
       hasPreviousPage,
       currentPage: page,
@@ -59,21 +57,9 @@ exports.getPage = async (req, res) => {
   }
 };
 
-exports.getLinks = async (req, res) => {
-  try {
-    // let data = await req.user.getDownloads();
-    let id = req.user._id;
-    let data = await Download.find({ userId: id });
-    res.status(200).json(data);
-    console.log(data, "linlks");
-  } catch {
-    (err) => console.log(err);
-  }
-};
 
 exports.getDownload = async (req, res) => {
   try {
-    // const expenses = await Userservices.getExpenses(req);
     const expenses = await Userservices.getExpenses(req);
     const stringExpenses = JSON.stringify(expenses);
     const userId = req.user._id;
@@ -122,8 +108,32 @@ exports.getLeaderboard = async (req, res, next) => {
   }
 };
 
+exports.postaddInc = async (req, res, next) => {
+  const amount = req.body.IncAmount;
+  const category = req.body.IncCategory;
+  let userId = req.user._id;
+  try {
+    const user = await User.findOne({ _id: req.user._id });
+    const previousIncome = user.totalIncome;
+    const newIncome = previousIncome + amount;
+    const promise =await User.updateOne(
+      { _id: req.user._id },
+      { $set: { totalIncome: newIncome } }
+    );
+    res.status(200).json({sucess:true,message:"income updated"});
+  } catch {
+    (err) => {
+      console.log(err);
+    };
+  }
+
+  //  const promise = User.updateOne(
+  //   { _id: req.user._id },
+  //   { $set: { totalIncome: true } }
+  // );
+};
 exports.postaddNew = async (req, res, next) => {
-  const t = await sequelize.transaction();
+  // const t = await sequelize.transaction();
   const amount = req.body.amount;
   const description = req.body.description;
   const category = req.body.category;
@@ -207,7 +217,7 @@ exports.postEdit = async (req, res, next) => {
     );
 
     console.log("Record Updated");
-    res.json(updatedExpense);
+    res.json({ sucess: "true", data: updatedExpense });
   } catch (error) {
     console.log(error);
   }

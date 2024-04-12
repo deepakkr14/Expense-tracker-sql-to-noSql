@@ -13,12 +13,13 @@ async function login(event) {
     });
     console.log('nadfndf d');
     console.log(response.data);
-    localStorage.setItem("token",response.data.token)
     if (response.status == 201) {
+      localStorage.setItem("token",response.data.token)
       alert("Successfully logged in");
       window.location.href = './expense.html';
     }
   } catch (error) {
-    alert(error);
+    console.log(error.response.data.message)
+    alert(error.response.data.message);
   }
 }

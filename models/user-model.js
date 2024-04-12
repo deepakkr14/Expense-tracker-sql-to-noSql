@@ -7,11 +7,12 @@ let userSchema = new Schema({
   password: { type: String, required: true },
   totalExpense: { type: Number,allowNull:false,default: 0 },
   ispremiumuser: { type: Boolean, default: false },
+  totalIncome: {type : Number , default :0},
 });
 
-userSchema.methods.isPremiumUser = async function () {
-  return this.isPremium;
-};
+// userSchema.methods.isPremiumUser = async function () {
+//   return this.isPremium;
+// };
 
 
 module.exports = mongoose.model("User", userSchema);

@@ -2,6 +2,7 @@ let form = document.getElementById("forms");
 let table = document.getElementById("table");
 let token = localStorage.getItem("token");
 let premiumBuy = document.querySelector("#premiumbtn");
+let logoutbtn = document.querySelector("#logoutbtn");
 let leaderboardbtn = document.querySelector("#leader");
 let leaderboard_div = document.querySelector("#leaderboard");
 let downloadbtn = document.getElementById("download");
@@ -11,7 +12,11 @@ let pagination = document.getElementById("pagination");
 // let pageLimit=document.getElementById("pageLimit")
 
 let page = 1;
-
+logoutbtn.addEventListener('click',async function(e){
+  e.preventDefault();
+  window.location.href = './login.html';
+  localStorage.removeItem("token")
+})
 // DOWNLOAD REPORT BUTTON FUNCTION
 downloadbtn.addEventListener("click", async function (e) {
   e.preventDefault();
@@ -75,6 +80,7 @@ async function addItem(e) {
         },
         { headers: { authorization: token } }
       );
+      alert(`Record Updated Successfully`,userId);
       console.log("record Updated");
       form.reset();
       showAllrecord(page);
@@ -130,9 +136,9 @@ premiumBuy.addEventListener("click", async function (e) {
 
   const options = {
     key: response.data.key_id,
-    name: "D J Company",
+    name: "Dx perience Premium Membership",
     description: "test transaction",
-    // image:'https://png.pngtree.com/template/20201023/ourmid/pngtree-fitness-logo-with-letter-tg-icon-idea-of-logo-design-image_427180.jpg',
+    image:'https://png.pngtree.com/template/20201023/ourmid/pngtree-fitness-logo-with-letter-tg-icon-idea-of-logo-design-image_427180.jpg',
     order_id: response.data.order.id,
     // handles successful payment
     handler: async function (response) {
@@ -156,8 +162,8 @@ premiumBuy.addEventListener("click", async function (e) {
     },
   };
 
-  const rzp1 = new Razorpay(options);
-
+  // const rzp1 = new Razorpay(options);
+  const rzp1 = new window.Razorpay(options);
   rzp1.open();
   e.preventDefault();
   rzp1.on("payment.failed", function (response) {

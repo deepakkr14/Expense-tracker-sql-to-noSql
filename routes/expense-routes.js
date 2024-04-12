@@ -9,10 +9,12 @@ const router = express.Router();
 router.get("/getAll",authMiddle, expenseController.getEverything);
 router.get("/leaderboard",authMiddle, expenseController.getLeaderboard);
 router.get("/user/download",authMiddle, expenseController.getDownload);
-router.post("/add",authMiddle, expenseController.postaddNew);
-router.get("/delete/:id",authMiddle, expenseController.getDelete);
-router.post("/edit", authMiddle,expenseController.postEdit);
-router.get("/getlinks", authMiddle,expenseController.getLinks);
+router.post("/add",authMiddle, expenseController.postaddNew);        
+router.get("/delete/:id",authMiddle, expenseController.getDelete); 
+router.post("/edit", authMiddle,expenseController.postEdit);              
+// router.get("/getlinks", authMiddle,expenseController.getLinks);
 router.get("/page/:no/:limit", authMiddle,expenseController.getPage);
+router.post("/add/income", authMiddle,expenseController.postaddInc);
+
 
 module.exports = router;

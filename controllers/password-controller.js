@@ -9,10 +9,10 @@ const Password = require("../models/password-model");
 exports.postForgotPassword = async (req, res, next) => {
   try {
     const user = await User.findOne({ where: { email: req.body.email } });
+    
     if (!user) {
-      res.status(405).json({ success: false });
+      res.status(405).json({ success: false, message: "User with this email id not exists" ,user:user});
 
-      console.log("User with this email id not exists");
       return;
     }
 

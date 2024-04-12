@@ -43,12 +43,11 @@ exports.postlogin = async (req, res, next) => {
     const user = await Users.findOne({ email: email  });
     if (user) {
       const passwordsMatch = await bcrypt.compare(password, user.password);
-
       if (passwordsMatch) {
 
         jwt.sign({userId: user.id },secret,{expiresIn:'2h'},(err,token)=>{
           
-             res.status(201).json({ message: "Login successful" ,token:token});
+             res.status(201).json({ message: "Login successful" ,token:token,user_id:user.name});
           
         })
        

@@ -1,6 +1,8 @@
 const Order = require("../models/order-model");
 const User = require("../models/user-model");
+// const mongoose=require('mongoose');
 const Razorpay = require("razorpay");
+
 
 const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
@@ -9,18 +11,24 @@ const razorpay = new Razorpay({
 const amount = 2500;
 
 const createOrder = async (req, res) => {
+  // const session = await mongoose.startSession();
+  try {
+  // session.startTransaction();
   const options = {
     amount: amount,
     currency: "INR",
     receipt: "order_receipt",
   };
-  try {
     const order = await razorpay.orders.create(options);
     // await req.user.createOrder({ orderid: order.id });
-    Order.create({
-      userId: req.user,
-      orderid: order.id,
-    });
+    // await session.withTransaction(async () => {
+      const orderDoc = await Order.create({
+        userId: req.user,
+        orderid: order.id,
+      });
+    // });
+    // await session.commitTransaction();
+    // session.endSession();
     res.json({ order: order, key_id: process.env.RAZORPAY_KEY_ID });
   } catch (error) {
     console.error(error);
@@ -42,7 +50,7 @@ const updateTransactionStatus = async (req, res) => {
       { _id: req.user._id },
       { $set: { ispremiumuser: true } }
     );
-    console.log(order, "payment it");
+    // console.log(order, "payment it");
     Promise.all([promise1, promise2])
       .then(() => {
         return res
